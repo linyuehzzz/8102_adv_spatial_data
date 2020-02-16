@@ -5,6 +5,7 @@ rm(list=ls())
 
 # 2. Exploratory analysis of spatial point patterns
 data(japanesepines)
+?japanesepines
 jp = japanesepines
 class(jp)
 summary(jp)
@@ -165,6 +166,18 @@ plot(rw.khat, sqrt(border/pi)-r ~ r, ylab="L(r)",
 abline(h=0, lty=2, col="red")
 
 ## test for CSR with simulations (Fhat)
+fhat.env = function(n, s, r, win=owin(c(0,1),c(0,1)))
+{
+  hold = matrix(0, s, length(r))
+  for(i in 1:s)
+  {
+    hold[i,] = Fest(runifpoint(n, win=win), r=r)$rs
+  }
+  mn = apply(hold, 2, mean)
+  Up = apply(hold, 2, max)
+  Down = apply(hold, 2, min)
+  return(data.frame(mn, Up, Down))
+}
 rw.fhat = Fest(rw)
 rw.win = window(rw)
 rw.fenv = fhat.env(n=rw$n, s=100, r=rw.fhat$r, rw.win)
