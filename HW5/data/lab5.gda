@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+    <title>columbus</title>
+    <layers>
+        <layer>
+            <datasource>
+                <type>ESRI Shapefile</type>
+                <path>columbus.shp</path>
+            </datasource>
+            <layername>columbus</layername>
+            <title/>
+            <variable_order>
+                <time_ids>
+                    <id>time 0</id>
+                </time_ids>
+                <var>ERR_PRDERR</var>
+                <var>ERR_RESIDU</var>
+                <var>ERR_PREDIC</var>
+                <var>LAG_PRDERR</var>
+                <var>LAG_RESIDU</var>
+                <var>LAG_PREDIC</var>
+                <var>OLS_RESIDU</var>
+                <var>OLS_PREDIC</var>
+                <var>AREA</var>
+                <var>PERIMETER</var>
+                <var>COLUMBUS_</var>
+                <var>COLUMBUS_I</var>
+                <var>POLYID</var>
+                <var>NEIG</var>
+                <var>HOVAL</var>
+                <var>INC</var>
+                <var>CRIME</var>
+                <var>OPEN</var>
+                <var>PLUMB</var>
+                <var>DISCBD</var>
+                <var>X</var>
+                <var>Y</var>
+                <var>NSA</var>
+                <var>NSB</var>
+                <var>EW</var>
+                <var>CP</var>
+                <var>THOUS</var>
+                <var>NEIGNO</var>
+            </variable_order>
+            <custom_classifications/>
+            <spatial_weights>
+                <weights>
+                    <path>columbus.gal</path>
+                    <default/>
+                </weights>
+            </spatial_weights>
+            <default_vars>
+                <default_var>
+                    <name>ERR_RESIDU</name>
+                    <time_id>time 0</time_id>
+                </default_var>
+                <default_var>
+                    <name/>
+                    <time_id>time 0</time_id>
+                </default_var>
+                <default_var>
+                    <name/>
+                    <time_id>time 0</time_id>
+                </default_var>
+                <default_var>
+                    <name/>
+                    <time_id>time 0</time_id>
+                </default_var>
+            </default_vars>
+        </layer>
+    </layers>
+</project>
