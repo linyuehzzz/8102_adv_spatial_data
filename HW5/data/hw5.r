@@ -115,3 +115,39 @@ plot(ColData,fill=T,col=clr.c)
 legend("topleft", fill = cols.c,legend = leglabs,bty = "n", cex = 0.8)
 title(main = "LISA Cluster Map(CRIME)")
 box()
+
+# 5.2 Getis-Ord's Gi and Gi*
+col.W = nb2listw(col_nb, style="W") # same as we used for moran() and localmoran()
+G = localG(crime, col.W) # Gi
+Gc = matrix(0,s,1)
+Gc[G>=1.96] = 1 # index for HH
+Gc[G<=-1.96] = 2 # index for LL
+ColData$G = Gc
+
+col.W2 = nb2listw(include.self(col_nb), style="W")
+G2 = localG(crime, col.W2) # Gi*
+Gc2 = matrix(0,s,1)
+Gc2[G2>=1.96] = 1 # index for HH
+Gc2[G2<=-1.96] = 2 # index for LL
+ColData$G2 = Gc2
+
+dev.new(width=8, height=4)
+par(mfrow = c(1, 2), mar=c(1,1,1.5,1), pty = "s")
+
+cols.c = c("ghostwhite","red","blue")
+clr.c = cols.c[ColData$G+1]
+leglabs = c("Not Significant","High-High","Low-Low")
+plot(ColData,fill=T,col=clr.c)
+legend("topleft", fill = cols.c,legend = leglabs,bty = "n", cex = 0.8)
+title(main=expression(paste("Values of the ", G[i], " statistic")))
+box()
+
+cols.c = c("ghostwhite","red","blue")
+clr.c2 = cols.c[ColData$G2+1]
+leglabs = c("Not Significant","High-High","Low-Low")
+plot(ColData,fill=T,col=clr.c2)
+legend("topleft", fill = cols.c,legend = leglabs,bty = "n", cex = 0.8)
+title(main=expression(paste("Values of the ", G[i]^"*", " statistic")))
+box()
+par(mfrow = c(1, 1))
+
