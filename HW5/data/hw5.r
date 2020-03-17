@@ -35,7 +35,6 @@ plot(col_nb, coords, pch = 19, cex = 0.6, add = TRUE)
 title("Adjacency Connection")
 box()
 
-
 # 3.2 K nearest neighbors
 nbk1 = knn2nb(knearneigh(coords, k=1), row.names=IDs)
 nbk2 = knn2nb(knearneigh(coords, k=2), row.names=IDs)
@@ -52,7 +51,6 @@ plot(nbk2, coords, add=TRUE, pch=19, cex=0.6)
 text(bbox(ColData)[1,1] + 0.5, bbox(ColData)[2,2], labels="k=2")
 box()
 par(mfrow=c(1,1))
-
 
 # 3.3 Distance-based neighbors
 dsts = unlist(nbdists(col_nb, coords))
@@ -160,3 +158,26 @@ res=resid(Col.lm)
 res=(res-min(res))/diff(range(res)) # standardize
 plot(ColData,forcefill=FALSE,col=gray(1-res))
 lm.morantest(Col.lm,col.W)
+
+
+# 7. Spatial Proximity Matrices
+col_nb = poly2nb(ColData, queen = TRUE) # recall that we have done this in Part I, 3(1)
+col.listw=nb2listw(col_nb,style="W")
+
+col.listw.sym=similar.listw(col.listw)
+
+W=as.matrix(as_dgRMatrix_listw(col.listw))
+W.sym=as.matrix(as_dgRMatrix_listw(col.listw.sym))
+
+image(W) #gives image plot of sparse matrix
+#(non-zero elements are lighter in color and zeros are white)
+image(W.sym)
+
+
+# 8. Fitting SAR and CAR models
+crime.sar=spautolm(CRIME~INC+HOVAL,data= ColData,col.listw,family="SAR")
+summary(crime.sar)
+
+crime.car=spautolm(CRIME~INC+HOVAL,data= ColData,col.listw.sym,family="CAR")
+summary(crime.car)
+
