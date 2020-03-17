@@ -151,3 +151,12 @@ title(main=expression(paste("Values of the ", G[i]^"*", " statistic")))
 box()
 par(mfrow = c(1, 1))
 
+
+# Part II: Spatial Regression Models Using R
+# 6. Residual dependence test
+Col.lm=lm(CRIME ~ INC + HOVAL, data=ColData)
+summary(Col.lm)
+res=resid(Col.lm)
+res=(res-min(res))/diff(range(res)) # standardize
+plot(ColData,forcefill=FALSE,col=gray(1-res))
+lm.morantest(Col.lm,col.W)
